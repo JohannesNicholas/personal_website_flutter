@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Johannes Nicholas',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -22,9 +22,22 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        //dark theme
+        colorScheme: const ColorScheme(
+          brightness: Brightness.dark,
+          primary: Colors.orange,
+          onPrimary: Colors.black,
+          secondary: Colors.orange,
+          onSecondary: Colors.black,
+          error: Colors.red,
+          onError: Colors.black,
+          background: Colors.black,
+          onBackground: Colors.white,
+          surface: Colors.orange,
+          onSurface: Colors.black,
+        ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Johannes Nicholas'),
     );
   }
 }
