@@ -72,7 +72,23 @@ class PortfolioTile extends StatelessWidget {
                         clipBehavior: Clip.hardEdge,
                         fit: BoxFit.cover,
                         child: Image.network(image))),
-                Center(child: Text(title)),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    DecoratedBox(
+                      //transparent black background
+                      decoration: BoxDecoration(color: Colors.black54),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          title,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             )),
       );
