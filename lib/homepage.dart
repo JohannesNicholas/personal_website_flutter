@@ -29,7 +29,12 @@ class _HomePageState extends State<HomePage> {
                       //alignment: WrapAlignment.center,
                       children: (snapshot.hasData)
                           ? snapshot.data as List<Widget>
-                          : [CircularProgressIndicator()]),
+                          : [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: CircularProgressIndicator(),
+                              )
+                            ]),
                 ),
               ],
             ),
@@ -58,7 +63,18 @@ class PortfolioTile extends StatelessWidget {
             color: Colors.orange,
             height: tileSize,
             width: tileSize,
-            child: Center(child: Text(title))),
+            child: Stack(
+              children: [
+                SizedBox(
+                    height: tileSize,
+                    width: tileSize,
+                    child: FittedBox(
+                        clipBehavior: Clip.hardEdge,
+                        fit: BoxFit.cover,
+                        child: Image.network(image))),
+                Center(child: Text(title)),
+              ],
+            )),
       );
     });
   }
