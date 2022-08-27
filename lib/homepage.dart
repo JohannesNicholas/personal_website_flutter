@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+
+const tileSize = 200.0;
 
 class HomePage extends StatefulWidget {
   int _counter = 0;
@@ -10,43 +13,51 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      // Center is a layout widget. It takes a single child and positions it
-      // in the middle of the parent.
-      child: Column(
-        // Column is also a layout widget. It takes a list of children and
-        // arranges them vertically. By default, it sizes itself to fit its
-        // children horizontally, and tries to be as tall as its parent.
-        //
-        // Invoke "debug painting" (press "p" in the console, choose the
-        // "Toggle Debug Paint" action from the Flutter Inspector in Android
-        // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-        // to see the wireframe for each widget.
-        //
-        // Column has various properties to control how it sizes itself and
-        // how it positions its children. Here we use mainAxisAlignment to
-        // center the children vertically; the main axis here is the vertical
-        // axis because Columns are vertical (the cross axis would be
-        // horizontal).
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          const Text(
-            'You have pushed the button this many times:',
-          ),
-          TextButton(
-              onPressed: () {
-                //increment counter
-                setState(() {
-                  widget._counter++;
-                });
-              },
-              child: Icon(Icons.add)),
-          Text(
-            '${widget._counter}',
-            style: Theme.of(context).textTheme.headline4,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 1),
+      child: Row(
+        children: [
+          Expanded(
+            child: Wrap(
+                runAlignment: WrapAlignment.center,
+                alignment: WrapAlignment.center,
+                //alignment: WrapAlignment.center,
+                children: <Widget>[
+                  PortfolioTile(),
+                  PortfolioTile(),
+                  PortfolioTile(),
+                  PortfolioTile(),
+                  PortfolioTile(),
+                  PortfolioTile(),
+                  PortfolioTile(),
+                  PortfolioTile(),
+                  PortfolioTile(),
+                  PortfolioTile(),
+                ]),
           ),
         ],
       ),
     );
+  }
+}
+
+class PortfolioTile extends StatelessWidget {
+  // a square tile with a title and background image to display one of my projects
+  const PortfolioTile({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      return Padding(
+        padding: const EdgeInsets.all(1),
+        child: Container(
+            color: Colors.orange,
+            height: tileSize,
+            width: tileSize,
+            child: Center(child: Text('Portfolio Tile'))),
+      );
+    });
   }
 }
