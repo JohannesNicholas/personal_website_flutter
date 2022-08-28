@@ -9,6 +9,9 @@ export const getData = functions.https.onRequest((request, response) => {
 
     console.log("Doing function")
 
+    //allow cross-origin requests
+    response.setHeader('Access-Control-Allow-Origin', '*');
+
     //grab the url from the request
     const url = request.query.url;
 

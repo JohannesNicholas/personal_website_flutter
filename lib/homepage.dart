@@ -98,8 +98,8 @@ class PortfolioTile extends StatelessWidget {
 
 Future<List<PortfolioTile>> extractItchData() async {
 //Getting the response from the targeted url
-  final response =
-      await http.Client().get(Uri.parse('https://johannesnicholas.itch.io/'));
+  final response = await http.Client().get(Uri.parse(
+      'https://us-central1-johannes-nicholas.cloudfunctions.net/getData?url=https://johannesnicholas.itch.io/'));
   //Status Code 200 means response has been received successfully
   if (response.statusCode == 200) {
     //Getting the html document from the response
