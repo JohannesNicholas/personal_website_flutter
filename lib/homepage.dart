@@ -98,8 +98,12 @@ class PortfolioTile extends StatelessWidget {
 
 Future<List<PortfolioTile>> extractItchData() async {
 //Getting the response from the targeted url
-  final response = await http.Client().get(Uri.parse(
-      'https://us-central1-johannes-nicholas.cloudfunctions.net/getData?url=https://johannesnicholas.itch.io/'));
+
+  final functionURL =
+      "https://us-central1-johannes-nicholas.cloudfunctions.net/getData?url=";
+
+  final response = await http.Client()
+      .get(Uri.parse(functionURL + 'https://johannesnicholas.itch.io/'));
   //Status Code 200 means response has been received successfully
   if (response.statusCode == 200) {
     //Getting the html document from the response
@@ -111,7 +115,11 @@ Future<List<PortfolioTile>> extractItchData() async {
       return gameCells.map((gameCell) {
         var title = gameCell.children[1].children[0].children[0].text.trim();
         var imageUrl =
-            gameCell.getElementsByTagName("img")[0].attributes["data-lazy_src"];
+            "https://us-central1-johannes-nicholas.cloudfunctions.net/getImage?url=" +
+                Uri.encodeComponent(gameCell
+                        .getElementsByTagName("img")[0]
+                        .attributes["data-lazy_src"] ??
+                    "https://avatars.githubusercontent.com/u/45587025");
 
         return PortfolioTile(
           title: title,
