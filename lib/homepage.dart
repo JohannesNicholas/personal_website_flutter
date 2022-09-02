@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:html/parser.dart' as parser;
 import 'package:http/http.dart' as http;
+import 'dart:html' as html;
 
 const tileSize = 200.0;
 
@@ -49,48 +50,58 @@ class PortfolioTile extends StatelessWidget {
     Key? key,
     required this.title,
     required this.image,
+    required this.url,
   }) : super(key: key);
 
-  final title;
-  final image;
+  final String url;
+  final String title;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       return Padding(
         padding: const EdgeInsets.all(1),
-        child: Container(
-            color: Colors.orange,
-            height: tileSize,
-            width: tileSize,
-            child: Stack(
-              children: [
-                SizedBox(
-                    height: tileSize,
-                    width: tileSize,
-                    child: FittedBox(
-                        clipBehavior: Clip.hardEdge,
-                        fit: BoxFit.cover,
-                        child: Image.network(image))),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () {
+              html.window.open(url, "testNAME");
+            },
+            child: Container(
+                color: Colors.orange,
+                height: tileSize,
+                width: tileSize,
+                child: Stack(
                   children: [
-                    DecoratedBox(
-                      //transparent black background
-                      decoration: BoxDecoration(color: Colors.black54),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          title,
-                          textAlign: TextAlign.center,
+                    SizedBox(
+                        height: tileSize,
+                        width: tileSize,
+                        child: FittedBox(
+                            clipBehavior: Clip.hardEdge,
+                            fit: BoxFit.cover,
+                            child: Image.network(image))),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        DecoratedBox(
+                          //transparent black background
+                          decoration: BoxDecoration(color: Colors.black54),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              title,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ],
-                ),
-              ],
-            )),
+                )),
+          ),
+        ),
       );
     });
   }
@@ -121,9 +132,12 @@ Future<List<PortfolioTile>> extractItchData() async {
                         .attributes["data-lazy_src"] ??
                     "https://avatars.githubusercontent.com/u/45587025");
 
+        var url = gameCell.getElementsByTagName("a")[0].attributes["href"];
+
         return PortfolioTile(
           title: title,
           image: imageUrl,
+          url: url ?? "https://johannesnicholas.itch.io/",
         );
       }).toList();
     } catch (e) {
