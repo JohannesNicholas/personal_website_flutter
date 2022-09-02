@@ -18,29 +18,65 @@ class _HomePageState extends State<HomePage> {
     return FutureBuilder(
         future: extractItchData(),
         builder: (context, snapshot) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 1),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Wrap(
-                      runAlignment: WrapAlignment.center,
-                      alignment: WrapAlignment.center,
-                      //alignment: WrapAlignment.center,
-                      children: (snapshot.hasData)
-                          ? snapshot.data as List<Widget>
-                          : [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: CircularProgressIndicator(),
-                              )
-                            ]),
-                ),
-              ],
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 1),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Wrap(
+                        runAlignment: WrapAlignment.center,
+                        alignment: WrapAlignment.center,
+                        //alignment: WrapAlignment.center,
+                        children: [
+                          ...[
+                            PortfolioTile(
+                              title: "GitHub",
+                              image:
+                                  "https://avatars.githubusercontent.com/u/45587025?v=4",
+                              url: "https://github.com/JohannesNicholas",
+                            ),
+                            PortfolioTile(
+                              title: "LinkedIn",
+                              image:
+                                  "https://media-exp1.licdn.com/dms/image/D5635AQEnN9V-BPIGTw/profile-framedphoto-shrink_200_200/0/1656923949439?e=1662714000&v=beta&t=wIrWCm_2xkeYztlQloAyQ-STD3CBRwCNtoPfNna2pwE",
+                              url:
+                                  "https://www.linkedin.com/in/johannes-nicholas-541175230/",
+                            ),
+                            PortfolioTile(
+                              title: "Itch.io",
+                              image: corsProxy(
+                                  "https://img.itch.zone/aW1nLzk4OTExNTQuanBn/80x80%23/Ui%2FhT6.jpg"),
+                              url: "https://johannesnicholas.itch.io/",
+                            ),
+                            PortfolioTile(
+                              title: "Twitter",
+                              image: corsProxy(
+                                  "https://pbs.twimg.com/profile_images/1535583474354388992/arWCWNsB_400x400.jpg"),
+                              url: "https://twitter.com/goanna7007",
+                            ),
+                          ],
+                          ...((snapshot.hasData)
+                              ? snapshot.data as List<Widget>
+                              : [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: CircularProgressIndicator(),
+                                  )
+                                ]),
+                        ]),
+                  ),
+                ],
+              ),
             ),
           );
         });
   }
+}
+
+String corsProxy(String url) {
+  return "https://us-central1-johannes-nicholas.cloudfunctions.net/getImage?url=" +
+      Uri.encodeComponent(url);
 }
 
 Future<List<PortfolioTile>> extractItchData() async {
