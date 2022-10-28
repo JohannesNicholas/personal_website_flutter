@@ -22,9 +22,11 @@ class _HomePageState extends State<HomePage> {
           children: [
             Padding(
               padding: EdgeInsets.only(top: 32, bottom: 8),
-              child: Text("Socials"),
+              child: Text("Itch games"),
             ),
-            Socials(),
+            FutureProjects(
+              futureChildren: extractItchData(),
+            ),
             Padding(
               padding: EdgeInsets.only(top: 32, bottom: 8),
               child: Text("GitHub Repos"),
@@ -34,11 +36,9 @@ class _HomePageState extends State<HomePage> {
             ),
             Padding(
               padding: EdgeInsets.only(top: 32, bottom: 8),
-              child: Text("Itch games"),
+              child: Text("Socials"),
             ),
-            FutureProjects(
-              futureChildren: extractItchData(),
-            ),
+            Socials(),
           ],
         ),
       ),
